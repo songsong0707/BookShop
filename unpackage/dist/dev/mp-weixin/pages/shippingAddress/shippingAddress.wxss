@@ -1,0 +1,22 @@
+.body{
+	width: 100%;
+	height: 1000px;
+	background-color: #77C2FA;
+}
+.foot{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	height: 40px;
+	background-color: #007AFF;
+}
+

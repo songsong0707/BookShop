@@ -1,0 +1,38 @@
+.all{
+	margin:10px 12px;
+	
+}
+.hang{
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: flex-start;
+	align-items: center;
+	font-size: 13px;
+	position: relative;
+}
+.hhr{
+	border: solid 0.5px #eee;
+	width: 95%;
+	margin:8px 8px;
+}
+.btnsubmit{
+	font-size: 15px;
+	font-weight: bold;
+	margin-top: 5px;
+	background-color: #FFD94D;
+}
+.contenttt{
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: flex-start;
+	align-items: center;
+	position: absolute;
+	left: 65px;
+}
+.radioo{
+	font-size: 13px;
+	padding-left: 63px;
+}
+.radio radio{
+	transform:scale(0.7);
+}

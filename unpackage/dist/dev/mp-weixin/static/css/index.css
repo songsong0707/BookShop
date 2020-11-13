@@ -1,0 +1,36 @@
+.body{
+	border: solid 1px white;
+}
+.head{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	font-size: 12px;
+	background-color: #77C2FA;
+	border-bottom: #007AFF solid 1px;
+	font-family: 'Times New Roman', Times, serif;
+	position: fixed;
+	width: 100%;
+}
+.head>view{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	padding:5px 0px;
+}
+.head>view>text{
+	margin:5px;
+}
+.bd{
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: flex-start;
+	align-items: flex-start;
+	margin-top: 36px;
+	background-color: red;
+}
+.search{
+	background:#77C2FA!important;padding:0px!important;
+}

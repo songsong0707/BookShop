@@ -1,0 +1,72 @@
+.body{
+	border: solid 1px white;
+}
+.head{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 12px;
+	background-color: #77C2FA;
+	border-bottom: #007AFF solid 1px;
+	font-family: 'Times New Roman', Times, serif;
+	position: fixed;
+	width: 100%;
+}
+.head>view{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	padding:3px 5px;
+	
+}
+.head>view>text{
+	margin:5px;
+}
+.bd{
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: flex-start;
+	align-items: flex-start;
+	margin-top: 39px;
+}
+.bd>view{
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: flex-start;
+	justify-content: center;
+	width: 28%;
+	margin: 3px;
+	padding:0px 5px;
+	background-color: lightskyblue;
+	border-radius: 5px;
+}
+.bd>view>image{
+	width:80px;
+	height:90px;
+}
+.bd>view .bookname{font-weight: bold; font-size: 13px}
+.bd>view .author{font-size: 12px; font-weight: bold;}
+.bd>view .price{color: red; font-size: 11px;text-align: right;width: 100%;}
+.bbb{
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	align-items: center;
+	position: relative;
+}
+.bottom{
+	width: 100%;
+	background-color: #007AFF;
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	justify-content: space-around;
+	position: fixed;
+	bottom: 0px;
+}
+.bottom>.dltBtn{
+	margin: 0px;
+}
+

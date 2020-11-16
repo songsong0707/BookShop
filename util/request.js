@@ -3,7 +3,7 @@ import axios from 'axios'
 
 // 自定义的一个axios对象:根据项目进行修改
 const service = axios.create({
-	baseURL: 'http://192.168.31.28:3000', // url = base url + request url
+	baseURL: 'http://192.168.31.117:3000', // url = base url + request url
 	//withCredentials: true, // send cookies when cross-domain requests 注意：withCredentials和后端配置的cross跨域不可同时使用
 	timeout: 6000, // request timeout
 	crossDomain: true

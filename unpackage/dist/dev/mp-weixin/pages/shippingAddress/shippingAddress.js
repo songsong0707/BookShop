@@ -148,14 +148,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 var pageObj;var _default =
 {
   data: function data() {
-    return {};
+    return {
+      userinfo: {
+        locationName: '',
+        detailedAddress: '',
+        houseNumber: '',
+        tag: '',
+        contacts: '',
+        sex: '',
+        phone: '' } };
 
 
   },
@@ -165,6 +170,13 @@ var pageObj;var _default =
       success: function success(res) {
         pageObj.windowWidth = res.windowWidth;
         pageObj.windowHeight = res.windowHeight;
+      } });
+
+    uni.getStorage({
+      key: 'userData',
+      success: function success(res) {
+        pageObj.userinfo = res.data;
+        console.log(pageObj.userinfo.locationName);
       } });
 
   },

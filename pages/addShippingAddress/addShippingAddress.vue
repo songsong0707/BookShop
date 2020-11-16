@@ -7,11 +7,11 @@
 					<text>收货地址： </text>
 					<view class="contenttt">
 						<van-icon name="location-o" />
-						<input class="uni-input" name="input" :value="locationName" placeholder="点击选择收货地址" />
+						<input class="uni-input" name="input" :value="userData.locationName" placeholder="点击选择收货地址" />
 					</view>
 				</view>
-				<view v-show="detailedAddress!=''" style="font-size: 12px;color: #999;padding-left: 65px;">
-					{{detailedAddress}}
+				<view v-show="userData.detailedAddress!=''" style="font-size: 12px;color: #999;padding-left: 65px;">
+					{{userData.detailedAddress}}
 				</view>
 				<!-- 分割水平线 -->
 				<view class="hhr"></view>
@@ -19,7 +19,7 @@
 				<view class="uni-form-item uni-column hang">
 					<text>门牌号： </text>
 					<view class="contenttt">
-						<input class="uni-input" name="input" placeholder="详细地址,例1层101室" />
+						<input class="uni-input" v-model="userData.houseNumber" name="input" placeholder="详细地址,例1层101室" />
 					</view>
 				</view>
 				<!-- 分割水平线 -->
@@ -28,7 +28,9 @@
 				<view class="uni-form-item uni-column hang">
 					<text>标签： </text>
 					<view class="contenttt">
-
+						<a :class="{'cur': select1==true,'nocur': select1==false}"  @click="judgeTag1()">家</a>
+						<a :class="{'cur': select2==true,'nocur': select2==false}"  @click="judgeTag2()">公司</a>
+						<a :class="{'cur': select3==true,'nocur': select3==false}"  @click="judgeTag3()">学校</a>
 					</view>
 				</view>
 				<!-- 分割水平线 -->
@@ -37,7 +39,7 @@
 				<view class="uni-form-item uni-column hang">
 					<text>联系人： </text>
 					<view class="contenttt">
-						<input class="uni-input" name="input" placeholder="请填写收货人的姓名" />
+						<input class="uni-input" v-model="userData.contacts" name="input" placeholder="请填写收货人的姓名" />
 
 					</view>
 
@@ -45,7 +47,7 @@
 				<!-- 分割水平线 -->
 				<view class="hhr"></view>
 				<!-- 先生女士 -->
-				<radio-group class="radioo" name="radio">
+				<radio-group class="radioo" name="radio" @change="radioChange">
 					<label class="radio">
 						<radio value="先生" checked />
 						<text>先生</text>
@@ -60,7 +62,7 @@
 				<view class="uni-form-item uni-column hang">
 					<view class="title">手机号：</view>
 					<view class="contenttt">
-						<input class="uni-input" name="input" placeholder="请填写收货人手机号码" />
+						<input class="uni-input" v-model="userData.phone" name="input" placeholder="请填写收货人手机号码" />
 					</view>
 				</view>
 				<!-- 分割水平线 -->
@@ -78,29 +80,78 @@
 	export default {
 		data() {
 			return {
-				locationName: "",
-				detailedAddress: "",
+				select1:false,
+				select2:false,
+				select3:false,
+				userData:{
+					locationName:'',
+					detailedAddress:'',
+					houseNumber:'',
+					tag:'',
+					contacts:'',
+					sex:'',
+					phone:''
+				}
 			}
 		},
 		onLoad() {
 			pageObj = this;
 		},
 		methods: {
+			judgeTag1() {
+				if(this.select1==true){
+					this.select1=false;
+					this.select2=false;
+					this.select3=false;
+				}else{
+					this.select1=true;
+					this.select2=false;
+					this.select3=false;
+				}	
+			},
+			judgeTag2() {
+				if(this.select2==true){
+					this.select1=false;
+					this.select2=false;
+					this.select3=false;
+				}else{
+					this.select1=false;
+					this.select2=true;
+					this.select3=false;
+					this.userData.tag="家"
+				}
+			},
+			judgeTag3() {
+				if(this.select3==true){
+					this.select1=false;
+					this.select2=false;
+					this.select3=false;
+					this.userData.tag="公司"
+				}else{
+					this.select1=false;
+					this.select2=false;
+					this.select3=true;
+					this.userData.tag="学校"
+				}
+			},
 			formSubmit: function(e) {
-				console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value))
-				var formdata = e.detail.value
+				console.log('form发生了submit事件，携带数据为：' + JSON.stringify(pageObj.userData))
+				var formdata = pageObj.userData
 				uni.showModal({
 					content: '表单数据内容：' + JSON.stringify(formdata),
-					showCancel: false
 				});
-			},
-			formReset: function(e) {
-				console.log('清空数据')
+				uni.setStorage({
+				    key: 'userData',
+				    data:JSON.stringify(formdata)
+				});
+				uni.navigateTo({
+					url:"../shippingAddress/shippingAddress"
+				})
 			},
 			choose() {
 				uni.chooseLocation({
 					success: (data) => {
-						if (data.errMsg!= "chooseLocation:ok") {
+						if (data.errMsg != "chooseLocation:ok") {
 							uni.setStorageSync('locationName', "");
 							uni.setStorageSync('detailedAddress', "");
 						} else {
@@ -110,17 +161,20 @@
 						}
 						var loinfo1 = uni.getStorageSync("locationName");
 						if (loinfo1 != "") {
-							pageObj.locationName = JSON.parse(loinfo1);
+							pageObj.userData.locationName = JSON.parse(loinfo1);
 							console.log(pageObj.locationName)
 						}
 						var loinfo2 = uni.getStorageSync("detailedAddress");
 						if (loinfo2 != "") {
-							pageObj.detailedAddress = JSON.parse(loinfo2);
+							pageObj.userData.detailedAddress = JSON.parse(loinfo2);
 							console.log(pageObj.detailedAddress)
 						}
 					}
 				});
 
+			},
+			radioChange(e){
+				this.userData.sex=e.detail.value;
 			}
 		}
 	}
@@ -131,5 +185,23 @@
 
 	.uni-form-item .title {
 		padding: 20rpx 0;
+	}
+
+	.nocur {
+		color: #000;
+		padding: 3px 5px;
+		margin: 5px;
+		border:solid #ff5d00 1px;
+		border-radius: 5px;
+	}
+
+	.cur {
+		color: white;
+		border: 1px solid #e5e5e5;
+		background-color: #ff5d00;
+		padding: 3px 5px;
+		margin: 5px;
+		border: solid #ff5d00 1px;
+		border-radius: 5px;
 	}
 </style>

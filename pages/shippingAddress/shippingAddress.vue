@@ -3,12 +3,9 @@
 		<view class="all" :style="{'width':windowWidth+'px','height':windowHeight+'px'}">
 			<view class="body">
 				<!-- 展示区域 -->
-				<scroll-view scroll-y="true">
-					<view v-for="i in 30" :key="i" @click="xiangqing()">
-						<van-card tag="标签" price="10.00" desc="描述信息" title="商品标题" thumb="@static/寿司.png">
-						</van-card>
-					</view>
-				</scroll-view>
+				<view class="">
+					{{userinfo}}
+				</view>
 			</view>
 			<view class="foot" @click="msa">
 				<van-icon name="add-o" />
@@ -24,7 +21,15 @@
 	export default {
 		data() {
 			return {
-
+				userinfo:{
+					locationName:'',
+					detailedAddress:'',
+					houseNumber:'',
+					tag:'',
+					contacts:'',
+					sex:'',
+					phone:''
+				}
 			}
 		},
 		onLoad() {
@@ -35,6 +40,13 @@
 					pageObj.windowHeight = res.windowHeight;
 				}
 			})
+			uni.getStorage({
+			    key: 'userData',
+			    success: function (res) {
+			        pageObj.userinfo=res.data;
+					console.log(pageObj.userinfo.locationName)
+			    }
+			});
 		},
 		methods: {
 			msa(){

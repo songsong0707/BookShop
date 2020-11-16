@@ -38,8 +38,8 @@
 				<van-cell title="浏览历史" is-link />
 				<van-cell title="帮助中心" is-link />
 				<van-cell title="反馈问题" is-link />
-				<van-cell v-show="userInfo!=null" @click="logout()" title="退出登录" is-link />
 				<van-cell title="收货地址" is-link link-type="navigateTo" url="/pages/shippingAddress/shippingAddress"/>
+				<van-cell v-show="userInfo!=null" @click="logout()" title="退出登录" is-link />
 			</view>
 		</view>
 	</view>
